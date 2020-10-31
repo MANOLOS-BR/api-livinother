@@ -33,9 +33,11 @@ public class ProfileResource {
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
-    user = userService.updateUser(id, user);
-    return ResponseEntity.ok().body(user);
+  public ResponseEntity<UserResponse> updateProfile(@PathVariable Long id, @RequestBody UserResponse userResquest) {
+    User user = userService.getUserById(id);
+    mapper.map(userResquest, user);
+    userService.updateUser(id, user);
+    return ResponseEntity.ok().body(userResquest);
   }
 
   @DeleteMapping("/{id}")

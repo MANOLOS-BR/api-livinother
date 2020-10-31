@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User updateUser(Long id, User user) {
     Optional<User> productUpdate = userRepository.findById(id);
-    if (!productUpdate.isPresent()) {
+    if (productUpdate.isPresent()) {
       user.setId(productUpdate.get().getId());
       userRepository.save(user);
       return user;
