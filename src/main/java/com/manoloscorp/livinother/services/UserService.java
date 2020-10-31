@@ -18,6 +18,8 @@ public interface UserService {
 
   Boolean existsUserByEmail(String email);
 
+  void deleteUser(Long id);
+
   Boolean existsUserById(Long id);
 
   Long countUserByUserType(UserType value);

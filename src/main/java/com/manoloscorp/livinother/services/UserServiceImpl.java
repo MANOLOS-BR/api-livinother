@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User updateUser(Long id, User user) {
     Optional<User> productUpdate = userRepository.findById(id);
-    if (productUpdate != null) {
+    if (!productUpdate.isPresent()) {
       user.setId(productUpdate.get().getId());
       userRepository.save(user);
       return user;
@@ -57,6 +57,14 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void deleteUser(Long id) {
+    if(!existsUserById(id)){
+      throw new NotFoundException("Usuário não encontrado");
+    }
+    userRepository.deleteById(id);
+  }
+
+  @Override
   public Boolean existsUserById(Long id) {
     return userRepository.existsUserById(id);
   }
@@ -66,9 +74,5 @@ public class UserServiceImpl implements UserService {
     return userRepository.countUserByUserType(value);
   }
 
-//  @Override
-//  public Long countUserByUserTypeReceptor() {
-//    return userRepository.countUserByUserType_Receptor();
-//  }
 
 }
