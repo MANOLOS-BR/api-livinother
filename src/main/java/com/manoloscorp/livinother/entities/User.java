@@ -49,11 +49,6 @@ public class User implements Serializable {
   @OneToOne(cascade = CascadeType.ALL)
   private MedicalHistory medicalHistory;
 
-  @OneToMany(cascade = CascadeType.ALL,
-          fetch = FetchType.LAZY,
-          mappedBy = "user")
-  private List<Storie> stories = new ArrayList<>();
-
   public void setBirthDate(String birthDate) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate localDate = LocalDate.parse(birthDate, formatter);
